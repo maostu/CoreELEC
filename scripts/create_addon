@@ -140,6 +140,8 @@ addons=
 addons_drop=
 show_only="no"
 
+echo "Determining addons that are supposed to be installed"
+
 # read addons from parameter list
 while [ $# -gt 0 ]; do
   case ${1} in
