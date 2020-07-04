@@ -72,6 +72,7 @@ function find_addons() {
 
   # check if anything is found
   local _count=$(wc -w <<< $_addons)
+  echo "Packages that match query: $_count"
   if [ $_count -eq 0 ]; then
     # handle embedded addons here. Should only build when they are explictly specified in the addon list
     ( . ./config/options "$1" &>/dev/null

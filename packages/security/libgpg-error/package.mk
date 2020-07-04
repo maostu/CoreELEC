@@ -35,6 +35,7 @@ pre_configure_target() {
   esac
 
   cp $PKG_BUILD/src/syscfg/lock-obj-pub.$GPGERROR_TUPLE.h $PKG_BUILD/src/syscfg/lock-obj-pub.$GPGERROR_TARGET.h
+  sed -i 's/namespace/pkg_&/' $PKG_BUILD/src/Makefile.{am,in} $PKG_BUILD/src/mkstrtable.awk
 }
 
 post_makeinstall_target() {

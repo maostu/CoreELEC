@@ -85,6 +85,8 @@ function find_addons() {
 
   # check if anything is found
   local _count=$(wc -w <<< $_addons)
+  echo "$(print_color CLR_INFO "Packages that match query: $_count")" >&$SILENT_OUT
+
   if [ $_count -eq 0 ]; then
     # handle embedded addons here. Should only build when they are explictly specified in the addon list
     ( . ./config/options "$1" &>/dev/null
@@ -242,6 +244,8 @@ log_path="$BUILD/logs"
 summary_file="/dev/null"
 export BUILD_INDENT=$((${BUILD_INDENT:-1}+$BUILD_INDENT_SIZE))
 
+echo "Determining addons that are supposed to be installed"
+
 # read addons from parameter list
 while [ $# -gt 0 ]; do
   case $1 in
@@ -255,6 +259,8 @@ while [ $# -gt 0 ]; do
   esac
   shift
 done
+
+echo "Determined addons that are supposed to be installed: $addons"
 
 # check log parameter
 case "$write_logs" in
@@ -296,7 +302,7 @@ for addon in $(tr " " "\n" <<< $addons | sort -u); do
   if [ -n "$log_path" ]; then
     log_file="$log_path/$addon.log"
   fi
-
+  echo "Attempting to begin build process for $addon"
   # build package
   echo "$(print_color CLR_BUILD "CREATE ADDON $addon") (${DEVICE:-$PROJECT}/$TARGET_ARCH)" >&$SILENT_OUT
   _count+='x'
